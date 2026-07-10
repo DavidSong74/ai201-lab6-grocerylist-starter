@@ -1,0 +1,228 @@
+# Add an item
+curl -X POST http://127.0.0.1:5000/lists/LIST_ID/items \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Eggs", "quantity": 12, "unit": "count", "category": "dairy", "added_by": "USER_ID"}'
+
+# Mark an item as purchased
+curl -X PATCH http://127.0.0.1:5000/lists/LIST_ID/items/ITEM_ID \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "USER_ID"}'
+===================
+Seed data created successfully.
+  Users: 2 (maya, leo)
+  Lists: 2 (Weekly Shop, Party Supplies)
+  Items: 12 (7 unpurchased, 5 purchased)
+
+User IDs (use these to test the API):
+  maya: e55a0299-1b20-494d-ab08-f11a0094b3ac
+  leo:  9520d8b9-6cf6-4735-9af9-5e2a8e64b335
+
+List IDs:
+  Weekly Shop (maya's, private): 5527ab6b-d837-4565-b135-b12f4f3dceaa
+  Party Supplies (leo's, shared): bc35ea90-7120-46ae-ab80-047fcad9545a
+====================
+
+curl http://127.0.0.1:5000/lists/
+
+[
+  {
+    "created_at": "2026-07-10T04:57:18.584954",
+    "created_by": "9520d8b9-6cf6-4735-9af9-5e2a8e64b335",
+    "id": "bc35ea90-7120-46ae-ab80-047fcad9545a",
+    "is_shared": true,
+    "name": "Party Supplies"
+  },
+  {
+    "created_at": "2026-07-10T04:57:18.584950",
+    "created_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "is_shared": false,
+    "name": "Weekly Shop"
+  }
+]
+========== 1st list : party supplies
+curl http://127.0.0.1:5000/lists/bc35ea90-7120-46ae-ab80-047fcad9545a/items
+[
+  {
+    "added_at": "2026-07-08T04:57:18.581142",
+    "added_by": "9520d8b9-6cf6-4735-9af9-5e2a8e64b335",
+    "category": "supplies",
+    "id": "b69a8faa-3444-47f7-8270-bae913d4f007",
+    "is_purchased": false,
+    "list_id": "bc35ea90-7120-46ae-ab80-047fcad9545a",
+    "name": "Paper Plates",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 50.0,
+    "unit": "count"
+  },
+  {
+    "added_at": "2026-07-08T04:57:18.581142",
+    "added_by": "9520d8b9-6cf6-4735-9af9-5e2a8e64b335",
+    "category": "beverages",
+    "id": "e23986ab-a252-4aea-97ec-5fe54876d73b",
+    "is_purchased": false,
+    "list_id": "bc35ea90-7120-46ae-ab80-047fcad9545a",
+    "name": "Sparkling Water",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 6.0,
+    "unit": "cans"
+  },
+  {
+    "added_at": "2026-07-08T04:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "snacks",
+    "id": "d710e820-9401-457b-9aba-f32ae1e6a74d",
+    "is_purchased": true,
+    "list_id": "bc35ea90-7120-46ae-ab80-047fcad9545a",
+    "name": "Chips",
+    "purchased_at": "2026-07-10T01:57:18.581142",
+    "purchased_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "quantity": 3.0,
+    "unit": "bags"
+  },
+  {
+    "added_at": "2026-07-08T04:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "snacks",
+    "id": "5d3d0a41-a117-478b-81cd-e9a401421a0e",
+    "is_purchased": true,
+    "list_id": "bc35ea90-7120-46ae-ab80-047fcad9545a",
+    "name": "Salsa",
+    "purchased_at": "2026-07-10T01:57:18.581142",
+    "purchased_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "quantity": 2.0,
+    "unit": "jars"
+  }
+]
+========== 2nd list: weekly supplies
+curl http://127.0.0.1:5000/lists/5527ab6b-d837-4565-b135-b12f4f3dceaa/items
+[
+  {
+    "added_at": "2026-07-09T23:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "produce",
+    "id": "424fc7d6-a078-452d-b86f-9f5f591bafae",
+    "is_purchased": false,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Bananas",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 1.0,
+    "unit": "bunch"
+  },
+  {
+    "added_at": "2026-07-09T23:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "dairy",
+    "id": "eb97738d-c118-44e6-a4ef-fa82be5afbe0",
+    "is_purchased": false,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Greek Yogurt",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 2.0,
+    "unit": "cups"
+  },
+  {
+    "added_at": "2026-07-10T00:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "bakery",
+    "id": "3a83ba8d-a3b1-47ba-b0e2-df2d273fcf72",
+    "is_purchased": false,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Sourdough",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 1.0,
+    "unit": "loaf"
+  },
+  {
+    "added_at": "2026-07-10T00:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "meat",
+    "id": "74822ab5-6627-4fd6-8ad9-8d82aa603071",
+    "is_purchased": false,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Chicken Thighs",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 2.0,
+    "unit": "lbs"
+  },
+  {
+    "added_at": "2026-07-10T01:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "pantry",
+    "id": "b4f852ad-cf56-4a9b-85c3-f8d47be6e196",
+    "is_purchased": false,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Pasta",
+    "purchased_at": null,
+    "purchased_by": null,
+    "quantity": 1.0,
+    "unit": "box"
+  },
+  {
+    "added_at": "2026-07-09T23:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "produce",
+    "id": "b82d3e5f-7a01-468e-a39d-07a86486ab9a",
+    "is_purchased": true,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Apples",
+    "purchased_at": "2026-07-10T03:57:18.581142",
+    "purchased_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "quantity": 6.0,
+    "unit": "count"
+  },
+  {
+    "added_at": "2026-07-09T23:57:18.581142",
+    "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "category": "dairy",
+    "id": "57f9fcc7-02c5-411c-9b66-e38d03bedfe2",
+    "is_purchased": true,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Milk",
+    "purchased_at": "2026-07-10T03:57:18.581142",
+    "purchased_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+    "quantity": 1.0,
+    "unit": "gallon"
+  },
+  
+ Leo made this: 9520d8b9-6cf6-4735-9af9-5e2a8e64b335 
+  {
+    "added_at": "2026-07-10T01:57:18.581142",
+    "added_by": "9520d8b9-6cf6-4735-9af9-5e2a8e64b335",
+    "category": "pantry",
+    "id": "94192808-6713-496a-8401-5a4c9e359a3a",
+    "is_purchased": true,
+    "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+    "name": "Olive Oil",
+    "purchased_at": "2026-07-10T04:27:18.581142",
+    "purchased_by": "9520d8b9-6cf6-4735-9af9-5e2a8e64b335",
+    "quantity": 1.0,
+    "unit": "bottle"
+  }
+]
+
+=========
+mark "banana" as purchased: 
+curl -X PATCH http://127.0.0.1:5000/lists/5527ab6b-d837-4565-b135-b12f4f3dceaa/items/424fc7d6-a078-452d-b86f-9f5f591bafae \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "e55a0299-1b20-494d-ab08-f11a0094b3ac"}
+
+{
+  "added_at": "2026-07-09T23:57:18.581142",
+  "added_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+  "category": "produce",
+  "id": "424fc7d6-a078-452d-b86f-9f5f591bafae",
+  "is_purchased": true,
+  "list_id": "5527ab6b-d837-4565-b135-b12f4f3dceaa",
+  "name": "Bananas",
+  "purchased_at": "2026-07-10T05:11:04.347326",
+  "purchased_by": "e55a0299-1b20-494d-ab08-f11a0094b3ac",
+  "quantity": 1.0,
+  "unit": "bunch"
+}
